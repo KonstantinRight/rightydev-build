@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="95739872-41db-445d-9d50-2b8d391dda35"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#e8edf2' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0b0d10;
+            --fg: #e8edf2;
+            --muted: #a7b0bb;
+            --card: rgba(255,255,255,.04);
+            --border: rgba(255,255,255,.10);
+        }
+        html, body { height: 100%; overflow-x: hidden; }
+        body {
+            margin: 0;
+            background: radial-gradient(1200px 800px at 20% 20%, rgba(255,255,255,.06), transparent 60%),
+                        radial-gradient(1200px 800px at 80% 30%, rgba(255,255,255,.05), transparent 55%),
+                        var(--bg);
+            color: var(--fg);
+            font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, sans-serif;
+        }
+        .card-panel {
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 18px;
+            padding: 28px 26px;
+            backdrop-filter: blur(10px);
+        }
+        a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
+        a:hover { border-bottom-color: var(--border); }
+        .sbox-logo {
+            background-color: #3273eb;
+            font-family: "Poppins", sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 0.34rem;
+            border-radius: 8px;
+            aspect-ratio: 1;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            border: none;
+        }
+    </style>
+    <title>Drag And Drop Inventory in s&amp;box | righty.dev</title><meta name="description" content="S&amp;box recently got a Drag And Drop API, so let&#x27;s take a look at how to build a grid-based inventory with drag and drop &#x2014; with it, or sometimes despite i..." /><link rel="canonical" href="https://righty.dev/en/blog/drag_and_drop_inventory" />
+    <link rel="alternate" hreflang="en" href="https://righty.dev/en/blog/drag_and_drop_inventory" />
+    <link rel="alternate" hreflang="ru" href="https://righty.dev/ru/blog/drag_and_drop_inventory" />
+    <link rel="alternate" hreflang="x-default" href="https://righty.dev/en/blog/drag_and_drop_inventory" /><meta property="og:title" content="Drag And Drop Inventory in s&amp;box" /><meta property="og:description" content="S&amp;box recently got a Drag And Drop API, so let&#x27;s take a look at how to build a grid-based inventory with drag and drop &#x2014; with it, or sometimes despite i..." />
+            <meta name="twitter:description" content="S&amp;box recently got a Drag And Drop API, so let&#x27;s take a look at how to build a grid-based inventory with drag and drop &#x2014; with it, or sometimes despite i..." /><meta property="og:url" content="https://righty.dev/en/blog/drag_and_drop_inventory" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="Drag And Drop Inventory in s&amp;box" /><meta property="og:image" content="https://righty.dev/Content/Blog/en/media/4/64c05afcf5bd3e809b9f896c440470e5.png" /></head>
+
+<body><div class="flex min-h-screen flex-col items-center gap-6 p-6 bg-[var(--bg)]"><div id="mobile-menu" class="fixed inset-0 z-[100] translate-x-full bg-[var(--bg)] transition-transform duration-300 ease-in-out sm:hidden"><div class="flex justify-end"><button id="close-mobile-menu-button" class="mr-8 mt-11 h-8 w-8" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-[var(--fg)]"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button></div>
+    <nav class="absolute left-0 right-0 mt-8"><div class="px-12 py-4"><a href="/en/blog" class="text-2xl font-bold tracking-widest text-[var(--fg)] underline" aria-current="page">Blog</a></div><div class="px-12 py-4"><a href="/en/games" class="text-2xl font-bold tracking-widest text-[var(--fg)]">Games</a></div><div class="px-12 py-4"><a href="/en/tags" class="text-2xl font-bold tracking-widest text-[var(--fg)]">Tags</a></div></nav></div>
+    <nav class="card-panel w-full max-w-[720px]"><header class="flex items-center justify-between"><div><a href="/en/" class="border-b border-transparent hover:border-[var(--border)]"><div class="flex items-center justify-between"><div class="text-2xl font-semibold sm:block text-[var(--fg)]">righty.dev</div></div></a></div>
+    <div class="flex items-center space-x-4 leading-5 sm:space-x-6"><a href="/en/blog" class="hidden font-medium text-[var(--muted)] hover:text-[var(--fg)] border-b border-transparent hover:border-[var(--border)] sm:block active" aria-current="page">Blog</a><a href="/en/games" class="hidden font-medium text-[var(--muted)] hover:text-[var(--fg)] border-b border-transparent hover:border-[var(--border)] sm:block">Games</a><a href="/en/tags" class="hidden font-medium text-[var(--muted)] hover:text-[var(--fg)] border-b border-transparent hover:border-[var(--border)] sm:block">Tags</a><a target="_blank" href="https://discord.gg/KZgXGYSEPh"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"></path></svg></a>
+        <div class="flex items-center rounded-full border border-[var(--border)] bg-[var(--card)] p-0.5 text-xs font-medium"><span class="px-2.5 py-1 rounded-full bg-[var(--fg)] text-[var(--bg)]">EN</span>
+                    <a href="/ru/blog/drag_and_drop_inventory" class="px-2.5 py-1 rounded-full text-[var(--muted)] hover:text-[var(--fg)] transition-colors">RU</a></div>
+        <button id="toggle-button" aria-label="Toggle Menu" class="block sm:hidden"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-8 w-8 text-[var(--fg)]"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg></button></div></header>
+<script>
+//👎 but what can I do? It's a static html. I can't use C# here.
+ const toggleMobileMenu = () => document.querySelector('#mobile-menu').classList.toggle('translate-x-full');
+ 
+ document.querySelector('#toggle-button').addEventListener('click', toggleMobileMenu);
+ document.querySelector('#close-mobile-menu-button').addEventListener('click', toggleMobileMenu);
+</script></nav>
+    <main class="card-panel w-full max-w-[720px] flex-1">
+<article><header class="mb-8"><h1 class="text-2xl font-bold tracking-tight text-[var(--fg)] sm:text-3xl">Drag And Drop Inventory in s&amp;box</h1>
+        <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[var(--muted)]"><span class="text-[var(--fg)]">Right</span><time datetime="2026-05-03T00:00:00.000">May 3, 2026</time><span class="border-l border-[var(--border)] pl-4"><div class="flex flex-wrap "><a class="text-[var(--muted)] hover:text-[var(--fg)] mr-3 text-sm font-medium uppercase" href="/en/tags/gamedev">gamedev</a><a class="text-[var(--muted)] hover:text-[var(--fg)] mr-3 text-sm font-medium uppercase" href="/en/tags/guide">guide</a></div></span></div></header>
+
+    <div class="prose prose-invert max-w-none pb-8"><p>S&amp;box recently got a Drag And Drop API, so let's take a look at how to build a grid-based inventory with drag and drop — with it, or sometimes despite it.
+<img src="Content/Blog/en/media/4/64c05afcf5bd3e809b9f896c440470e5.png" alt="64c05afcf5bd3e809b9f896c440470e5.png" /></p>
+<h1 id="getting-started">Getting Started</h1>
+<p>Recently I implemented one myself, the end result is visible in the title image above. Here, though, we'll aim for something simpler: a grid inventory with DnD from scratch, where you can place an item and move it around — that's enough to cover the s&amp;box specifics.</p>
+<p>Let's start with the grid layout:</p>
+<ul>
+<li>The intuitive approach: make an NxM grid of square cells with <code>border-width: 1px</code> between them. We're skipping this one, because every element would have its own border, and they'd stack to give you two pixels instead of one.</li>
+<li>The non-intuitive approach: same NxM slots, but use <code>gap: 1px</code> for the grid, and let the panel behind the cells show through the gaps to form the grid lines.</li>
+</ul>
+<p>Code:</p>
+<p><em>Inventory.razor:</em></p>
+<pre><code class="language-razor">@inherits PanelComponent
+
+&lt;root&gt;
+    &lt;div class=&quot;outline&quot;&gt;
+       &lt;div class=&quot;background&quot;&gt;
+          @for (var i = 0; i &lt; Rows; i++)
+          {
+             &lt;div class=&quot;row&quot;&gt;
+                @for (var j = 0; j &lt; Cols; j++)
+                {
+                    &lt;InventoryCell/&gt;
+                }
+             &lt;/div&gt;
+          }
+       &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/root&gt;
+
+@code {
+    public int Rows { get; set; } = 5;
+    public int Cols { get; set; } = 5;
+}
+</code></pre>
+<p><em>Inventory.razor.scss:</em></p>
+<pre><code class="language-scss">$grid-color: #FFFFFFf0;
+
+Inventory {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    bottom: 20%;
+    right: 30%;
+    pointer-events: all;
+    
+    background-color: #000000F0;
+    backdrop-filter: blur(10px);
+    
+    justify-content: center;
+    align-items: center;
+    
+    &gt; .outline {
+        background-color: $grid-color;
+        padding: 1px;
+        
+        &gt; .background {
+            position: relative;
+            background-color: $grid-color;
+            flex-direction: column;
+            gap: 1px;
+            
+            &gt; .row {
+                flex-direction: row;
+                gap: 1px;
+            }
+        }        
+    }
+}
+</code></pre>
+<p><em>InventoryCell.razor</em></p>
+<pre><code class="language-razor">@inherits Panel
+
+&lt;root/&gt;
+</code></pre>
+<p><em>InventoryCell.razor.scss</em></p>
+<pre><code class="language-scss">InventoryCell {
+    width: 96px;
+    height: 96px;
+    
+    background-color: #000000FA;
+}
+</code></pre>
+<p>Breaking it down:</p>
+<ul>
+<li><code>outline</code> serves as the grid border and is kept separate so we don't have to account for a one-pixel offset later.</li>
+<li><code>background</code> is the inner part of the grid, made visible through the one-pixel <code>gap</code> between cells.
+<ul>
+<li>It also has <code>position: relative</code>, which will matter shortly.</li>
+</ul>
+</li>
+<li>Cells are 96px. Leaving them at 100px would cause small gaps due to rounding — s&amp;box scales the UI relative to 1080p, and rounding errors can accumulate. 96px is safer, though not entirely bulletproof: if you shrink the editor window vertically, you'll still see a crack.</li>
+</ul>
+<p>The resulting grid should look something like this:</p>
+<p><img src="Content/Blog/en/media/4/47d8eafe118abd83cac5778d275b5fc5.png" alt="47d8eafe118abd83cac5778d275b5fc5.png" /></p>
+<h1 id="displaying-items">Displaying Items</h1>
+<p>The grid looks nice, but it's purely decorative for now, so next up is item rendering. First, we need an item class:</p>
+<p><em>InventoryItem.cs</em></p>
+<pre><code class="language-cs">public class InventoryItem
+{
+    public int Row { get; set; }
+    public int Col { get; set; }
+    public int Width { get; set; }
+    public int Height { get; set; }
+    public string Icon { get; set; } = &quot;handyman&quot;;
+}
+</code></pre>
+<p>And a visual wrapper for it:</p>
+<p><em>InventoryItemPanel.razor</em></p>
+<pre><code class="language-razor">@inherits Panel
+
+&lt;root&gt;
+    &lt;i&gt;@Icon&lt;/i&gt;
+&lt;/root&gt;
+
+@code {
+    [Parameter]
+    public InventoryItem Item { get; set; }
+    [Parameter]
+    public Inventory Owner { get; set; }
+
+    public int Row =&gt; Item.Row;
+    public int Col =&gt; Item.Col;
+    public int Width =&gt; Item.Width;
+    public int Height =&gt; Item.Height;
+    public string Icon =&gt; Item.Icon;
+    
+    public sealed override void Tick()
+    {
+        Style.Width = 96 * Width + 1 * (Width - 1);
+        Style.Height = 96 * Height + 1 * (Height - 1);
+        SetPosition();
+    }
+
+    protected virtual void SetPosition()
+    {
+        Style.Left = Col * 96 + 1 * Col;
+        Style.Top = Row * 96 + 1 * Row;
+    }
+}
+</code></pre>
+<p><em>InventoryItemPanel.razor.scss</em></p>
+<pre><code class="language-scss">InventoryItemPanel {
+    background-color: #000000FA;
+    color: white;
+    position: absolute;
+    font-size: 128px;
+    justify-content: center;
+    align-items: center;
+}
+</code></pre>
+<p>A few things to note:</p>
+<ul>
+<li>Items use <code>position: absolute</code>. Since <code>background</code> has <code>position: relative</code>, items are positioned relative to the grid rather than the entire screen.</li>
+<li><code>Tick</code> and <code>SetPosition</code> dynamically set the size and position, accounting for the one-pixel gaps between cells.
+<ul>
+<li>When setting size, add the gap widths covered by the panel.</li>
+<li>When setting position, count how many gaps come before this cell.</li>
+<li><code>SetPosition</code> is split out from <code>Tick</code> on purpose — we'll come back to that in a moment.</li>
+</ul>
+</li>
+<li>You'll also notice the magic number <code>96</code> showing up everywhere — in real code, pull it into a constant.</li>
+</ul>
+<p>Now just add item creation and rendering to Inventory.razor:</p>
+<p><em>Inventory.razor</em></p>
+<pre><code class="language-razor">&lt;div class=&quot;background&quot;&gt;
+    @* ... *@
+
+    @if (item != null)
+    {
+        &lt;InventoryItemPanel Item=&quot;@item&quot; Owner=&quot;@this&quot;/&gt;
+    }
+&lt;/div&gt;
+
+@code {
+    // ...
+
+    private InventoryItem item;
+
+    protected override void OnStart()
+    {
+        item = new InventoryItem
+        {
+            Width = 3,
+            Height = 2,
+            Row = 1,
+            Col = 1
+        };
+    }
+}
+</code></pre>
+<p>The result should look like this:</p>
+<p><img src="Content/Blog/en/media/4/7d0e3f1a415b27bc93958124757de71d.png" alt="7d0e3f1a415b27bc93958124757de71d.png" /></p>
+<h1 id="drag">Drag</h1>
+<p>Looking good, but it's still a static image, so time to add DnD. Unfortunately, we can't just drag the panel that's inside the grid directly. The reason becomes obvious once you think about how the DOM works — even though this isn't strictly the DOM. An element's appearance is determined not just by itself, but by all surrounding elements, so trying to rearrange it in the hierarchy will most likely end in tears (I tried).</p>
+<p>Instead, we create a &quot;ghost&quot; element — a copy attached to a completely different part of the tree, so nothing breaks. Since razor components are just regular C# classes, we don't need to duplicate any logic thanks to inheritance — we can simply extend <code>InventoryItemPanel</code>:</p>
+<p><em>DraggedInventoryItemPanel.cs</em></p>
+<pre><code class="language-cs">[StyleSheet(&quot;InventoryItemPanel.razor.scss&quot;)]
+public class DraggedInventoryItemPanel : InventoryItemPanel
+{
+    [Property]
+    public DragEvent DragEvent { get; set; }
+    
+    public override bool WantsDrag =&gt; false;
+
+    protected override void SetPosition()
+    {
+        var mouse = Mouse.Position;
+        Style.Left = Length.Pixels(mouse.x * ScaleFromScreen - DragEvent.LocalGrabPosition.x * ScaleFromScreen);
+        Style.Top = Length.Pixels(mouse.y * ScaleFromScreen - DragEvent.LocalGrabPosition.y * ScaleFromScreen);
+    }
+}
+</code></pre>
+<p>A few things worth noting:</p>
+<ul>
+<li><code>SetPosition</code> is exactly why we split it out — we override it here to make the item follow the cursor.
+<ul>
+<li>Mouse coordinates include a screen offset, so we multiply by <code>ScaleFromScreen</code>.</li>
+</ul>
+</li>
+<li><code>DragEvent</code> carries the grab point — so the cursor lands on the ghost element exactly where the drag started.</li>
+<li><code>WantsDrag</code> is overridden to return <code>false</code>. That's actually its default, but we're about to override it to <code>true</code> in <code>InventoryItemPanel</code>, so we need to explicitly set it back here.</li>
+<li>The <code>StyleSheet</code> attribute points to the existing style file, so we can reuse it and just add a couple of tweaks.</li>
+</ul>
+<p><em>InventoryItemPanel.razor.scss</em></p>
+<pre><code class="language-scss">InventoryItemPanel, DraggedInventoryItemPanel {
+    // ...
+}
+
+DraggedInventoryItemPanel {
+    background-color: #000000AA;
+    border-width: 1px;
+    border-color: white;
+}
+</code></pre>
+<p>Comma-separating the selectors applies shared styles to both elements, and the differences go in a separate block.</p>
+<p>Now that we have the ghost element, we need something to own it. We'll base it on the <code>DragHandler</code> from <a href="https://github.com/Facepunch/sandbox">sandbox</a> itself.</p>
+<p><em>DragHandler.razor</em></p>
+<pre><code class="language-razor">@inherits PanelComponent
+
+&lt;root&gt;
+    @if (Current is not null)
+    {
+        &lt;DraggedInventoryItemPanel @ref=&quot;_draggedOverlay&quot; class=&quot;dragging&quot; Item=&quot;@Current.Item&quot; DragEvent=&quot;@_currentDragEvent&quot; /&gt;
+    }
+&lt;/root&gt;
+
+@code
+{
+    public static DragHandler Instance { get; private set; }
+    public static bool IsDragging =&gt; Instance?.Current is not null;
+    public static Panel DraggedVisual =&gt; Instance?._draggedOverlay;
+    public InventoryItemPanel Current { get; set; }
+    private DragEvent _currentDragEvent;
+    private DraggedInventoryItemPanel _draggedOverlay;
+
+    protected override void OnStart() 
+        =&gt; Instance = this;
+
+    protected override void OnDestroy()
+    {
+        Instance = null;
+        Current = null;
+    }
+
+    public static void StartDragging(InventoryItemPanel data, DragEvent e)
+    {
+        if (Instance is null) return;
+        
+        Instance.Current = data;
+        Instance._currentDragEvent = e;
+        Instance.StateHasChanged();
+    }
+
+    public static void StopDragging()
+    {
+        if (!IsDragging || Instance is null) return;
+
+       Instance._draggedOverlay = null;
+       Instance.Current = null;
+       Instance.StateHasChanged();
+    }
+
+    protected override int BuildHash() =&gt; HashCode.Combine(Current);
+}
+</code></pre>
+<p><em>DragHandler.razor.scss</em></p>
+<pre><code class="language-scss">DragHandler
+{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    pointer-events: none;
+}
+</code></pre>
+<p>This is a component with static references to itself for convenience, though nothing stops you from using a regular reference instead. The logic could also live inside the inventory itself, but a separate component is cleaner if you want drag and drop between multiple inventories later.</p>
+<p><code>DragHandler</code> properties:</p>
+<ul>
+<li><code>Instance</code>: static reference to the component.</li>
+<li><code>IsDragging</code>: whether something is currently being dragged.</li>
+<li><code>Current</code>: the source panel of the dragged item.</li>
+<li><code>DraggedVisual</code>: the ghost panel itself.</li>
+</ul>
+<p>The methods are straightforward and just update those properties. <code>InventoryItemPanel</code> is responsible for calling <code>DragHandler</code>:</p>
+<p><em>InventoryItemPanel.razor</em></p>
+<pre><code class="language-cs">public override bool WantsDrag =&gt; true;
+
+protected override void OnDragStart(DragEvent e)
+    =&gt; DragHandler.StartDragging(this, e);
+
+protected override void OnDragEnd(DragEvent e)
+{
+    DragHandler.StopDragging();
+    var slot = GetSlot();
+    if (slot is {} sl)
+    {
+        Item.Col = sl.X;
+        Item.Row = sl.Y;
+    }
+}
+
+private (int X, int Y)? GetSlot()
+    =&gt; null;
+</code></pre>
+<p><code>WantsDrag</code> needs to be overridden for the panel to respond to <code>OnDrag</code> callbacks. <code>OnDragStart</code> delegates to <code>DragHandler</code>, and <code>OnDragEnd</code> also handles position updates — though <code>GetSlot</code> is just a stub for now. And yes, <code>slot is {} sl</code> is that quirky C# syntax for a null-check that also gives you a non-null binding right away. Feels a bit like C++ in its roundaboutness.</p>
+<p>Either way, we can now drag items around the inventory — even if the stub means we can't actually reposition them yet.</p>
+<p><img src="Content/Blog/en/media/4/dd16790722fea841e5dbc81baaa2344a.png" alt="dd16790722fea841e5dbc81baaa2344a.png" /></p>
+<h1 id="and-drop">And Drop</h1>
+<p>All that's left is replacing the stub. It's not complicated:</p>
+<pre><code class="language-cs">private (int X, int Y)? GetSlot()
+{
+    var dragged = DragHandler.DraggedVisual;
+    var x = (int)MathF.Round((dragged.Box.Left - Parent.Box.Left) / 97f);
+    var y = (int)MathF.Round((dragged.Box.Top - Parent.Box.Top) / 97f);
+    return x &lt; 0 || y &lt; 0 || x + Width &gt; Owner.Cols || y + Height &gt; Owner.Rows ? null : (x, y);
+}
+</code></pre>
+<p>The goal is to find the top-left cell that the dragged panel lands on — that's the coordinate we want to move the item to. We divide the ghost panel's position by the cell size plus gap (hence 97). <code>Parent</code> here is our <code>div</code> with class <code>background</code>.</p>
+<p>The final result looks like this:</p>
+<video autoplay loop muted playsinline>
+  <source src="Content/Blog/en/media/4/inv.mp4" type="video/mp4">
+</video>
+<p>One more thing worth mentioning. S&amp;box has four more <code>OnDrag</code> methods: <code>OnDrag</code>, <code>OnDragSelect</code>, <code>OnDragEnter</code>, <code>OnDragLeave</code>. I don't know what the first two are for — <code>OnDrag</code> doesn't even have documentation. I did try using the last two, but their behavior wasn't clear to me at all. They'd fire when I wasn't dragging anything, then go silent as soon as something appeared on the cursor. That was my personal &quot;despite it&quot; moment. Maybe if I'd figured them out, the slot detection logic could have been simplified a bit — but it wouldn't have changed the big picture. They'd probably be more useful for inventories where every item is 1x1 anyway.</p>
+<h1 id="wrapping-up">Wrapping Up</h1>
+<p>And there we have it — an inventory where you can drag items around. It's far from feature-complete, of course. In roughly descending order of importance:</p>
+<ul>
+<li>No collision logic for multiple items. There are plenty of ways to handle that, and none of them are s&amp;box-specific, so I left it out.</li>
+<li>All the logic is piled in one place.
+<ul>
+<li>As mentioned, magic numbers should be constants.</li>
+<li>Game logic should also be separated from UI — the UI should be a view, not own an actual logic.</li>
+</ul>
+</li>
+<li>The slot detection is too coarse. You'd want some tolerance so players don't have to land exactly on a cell.</li>
+<li>No highlight showing which cells the item will land on.</li>
+</ul>
+<p>But it's a fully functional foundation you can build whatever you want on top of.</p>
+</div></article></main>
+    <footer class="w-full max-w-[720px]"><div class="flex flex-col items-center"><div class="flex space-x-3"><a target="_blank" href="https://x.com/rightydev"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z"></path></svg></a>
+                <a target="_blank" href="https://www.twitch.tv/rightydev"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142z"></path>
+            <path d="M11.857 3.143h-1.143V6.57h1.143zm-3.143 0H7.571V6.57h1.143z"></path></svg></a>
+                <a target="_blank" href="https://github.com/KonstantinRight"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg></a>
+                <a target="_blank" href="https://www.youtube.com/channel/UCO-y484eT4gHaeUY2u8PQFQ"><svg style="scale: 1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M20.2838235,29.7208546 L20.2817697,19.3775851 L30.0092421,24.5671906 L20.2838235,29.7208546 Z M41.6409276,17.5856462 C41.6409276,17.5856462 41.2890436,15.0488633 40.2097727,13.9319394 C38.8405739,12.4655276 37.3060444,12.4583393 36.6026186,12.3724221 C31.5649942,12 24.008044,12 24.008044,12 L23.9922983,12 C23.9922983,12 16.4356904,12 11.398066,12.3724221 C10.6939556,12.4583393 9.16045298,12.4655276 7.79091194,13.9319394 C6.71164104,15.0488633 6.36009927,17.5856462 6.36009927,17.5856462 C6.36009927,17.5856462 6,20.5646804 6,23.5437145 L6,26.3365376 C6,29.3152295 6.36009927,32.2946059 6.36009927,32.2946059 C6.36009927,32.2946059 6.71164104,34.8310466 7.79091194,35.9483127 C9.16045298,37.4147246 10.9592378,37.3681718 11.7605614,37.5218644 C14.6406709,37.8042616 24.0001711,37.8915481 24.0001711,37.8915481 C24.0001711,37.8915481 31.5649942,37.8799099 36.6026186,37.5074878 C37.3060444,37.4219129 38.8405739,37.4147246 40.2097727,35.9483127 C41.2890436,34.8310466 41.6409276,32.2946059 41.6409276,32.2946059 C41.6409276,32.2946059 42,29.3152295 42,26.3365376 L42,23.5437145 C42,20.5646804 41.6409276,17.5856462 41.6409276,17.5856462 L41.6409276,17.5856462 Z"></path></svg></a>
+                <a target="_blank" href="https://www.instagram.com/rightydev"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"></path></svg></a>
+                <a target="_blank" href="https://www.tiktok.com/@righty.dev"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"></path></svg></a></div>
+            <div class="flex space-x-2 text-sm text-[var(--muted)]"><span>Right</span>
+                <div>© 2026</div></div></div></footer></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate></body></html>

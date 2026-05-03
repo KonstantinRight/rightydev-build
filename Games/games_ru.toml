@@ -1,0 +1,30 @@
+[[games]]
+title = "Terry Dev Tycoon"
+description = """
+Вариация в жанре симулятора разработчика игр с акцентом на микроменеджмент.
+* балансируй между потребностями персонажа и выпуском новых фич;
+* управляй командой через таск-трекер;
+* продвигай свой бренд и ханти сотрудников;
+* делай крутые игры и доминируй на рынке s&box;
+* или провались с треском.
+"""
+link = "https://sbox.game/righty/terrydev"
+screenshots = [
+    "/Games/terrydev_1.jpg", 
+    "/Games/terrydev_2.jpg", 
+    "/Games/terrydev_3.jpg", 
+    "/Games/terrydev_4.jpg", 
+    "/Games/terrydev_5.jpg"
+]
+
+[[games]]
+title = "Sboku Arena"
+description = """
+Sboku Arena — игра в жанре FPS-арены для S&Box, построенный на основе [Simple Weapon Base](https://github.com/timmybo5/simple-weapon-base). Демонстрирует возможности SbokuBot — AI-фреймворка для NPC в шутерах.
+* выживи 10 волн врагов;
+* прокачай персонажа;
+* создай собственный билд.
+"""
+link = "https://sbox.game/righty/sbokuarena"
+github = "https://github.com/KonstantinRight/SbokuArena"
+screenshots = ["/Games/sboku_1.jpg", "/Games/sboku_2.jpg", "/Games/sboku_3.jpg", "/Games/sboku_4.jpg"]

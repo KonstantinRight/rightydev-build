@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <script defer src="https://cloud.umami.is/script.js" data-website-id="95739872-41db-445d-9d50-2b8d391dda35"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { DEFAULT: '#e8edf2' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :root {
+            --bg: #0b0d10;
+            --fg: #e8edf2;
+            --muted: #a7b0bb;
+            --card: rgba(255,255,255,.04);
+            --border: rgba(255,255,255,.10);
+        }
+        html, body { height: 100%; overflow-x: hidden; }
+        body {
+            margin: 0;
+            background: radial-gradient(1200px 800px at 20% 20%, rgba(255,255,255,.06), transparent 60%),
+                        radial-gradient(1200px 800px at 80% 30%, rgba(255,255,255,.05), transparent 55%),
+                        var(--bg);
+            color: var(--fg);
+            font: 16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, sans-serif;
+        }
+        .card-panel {
+            border: 1px solid var(--border);
+            background: var(--card);
+            border-radius: 18px;
+            padding: 28px 26px;
+            backdrop-filter: blur(10px);
+        }
+        a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
+        a:hover { border-bottom-color: var(--border); }
+        .sbox-logo {
+            background-color: #3273eb;
+            font-family: "Poppins", sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            padding: 0.34rem;
+            border-radius: 8px;
+            aspect-ratio: 1;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            border: none;
+        }
+    </style>
+    <title>How software developer tried game development | righty.dev</title><meta name="description" content="I have several years of experience in IT, but I&#x2019;ve never worked in game development. That didn&#x2019;t stop me from participating in the Tech Jam by Facepunch..." /><link rel="canonical" href="https://righty.dev/en/blog/how_I_tried_gamedev" />
+    <link rel="alternate" hreflang="en" href="https://righty.dev/en/blog/how_I_tried_gamedev" />
+    <link rel="alternate" hreflang="ru" href="https://righty.dev/ru/blog/how_I_tried_gamedev" />
+    <link rel="alternate" hreflang="x-default" href="https://righty.dev/en/blog/how_I_tried_gamedev" /><meta property="og:title" content="How software developer tried game development" /><meta property="og:description" content="I have several years of experience in IT, but I&#x2019;ve never worked in game development. That didn&#x2019;t stop me from participating in the Tech Jam by Facepunch..." />
+            <meta name="twitter:description" content="I have several years of experience in IT, but I&#x2019;ve never worked in game development. That didn&#x2019;t stop me from participating in the Tech Jam by Facepunch..." /><meta property="og:url" content="https://righty.dev/en/blog/how_I_tried_gamedev" />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="How software developer tried game development" /><meta property="og:image" content="https://righty.dev/Content/Blog/en/media/1/image19.png" /></head>
+
+<body><div class="flex min-h-screen flex-col items-center gap-6 p-6 bg-[var(--bg)]"><div id="mobile-menu" class="fixed inset-0 z-[100] translate-x-full bg-[var(--bg)] transition-transform duration-300 ease-in-out sm:hidden"><div class="flex justify-end"><button id="close-mobile-menu-button" class="mr-8 mt-11 h-8 w-8" aria-label="Close Menu"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-[var(--fg)]"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg></button></div>
+    <nav class="absolute left-0 right-0 mt-8"><div class="px-12 py-4"><a href="/en/blog" class="text-2xl font-bold tracking-widest text-[var(--fg)] underline" aria-current="page">Blog</a></div><div class="px-12 py-4"><a href="/en/games" class="text-2xl font-bold tracking-widest text-[var(--fg)]">Games</a></div><div class="px-12 py-4"><a href="/en/tags" class="text-2xl font-bold tracking-widest text-[var(--fg)]">Tags</a></div></nav></div>
+    <nav class="card-panel w-full max-w-[720px]"><header class="flex items-center justify-between"><div><a href="/en/" class="border-b border-transparent hover:border-[var(--border)]"><div class="flex items-center justify-between"><div class="text-2xl font-semibold sm:block text-[var(--fg)]">righty.dev</div></div></a></div>
+    <div class="flex items-center space-x-4 leading-5 sm:space-x-6"><a href="/en/blog" class="hidden font-medium text-[var(--muted)] hover:text-[var(--fg)] border-b border-transparent hover:border-[var(--border)] sm:block active" aria-current="page">Blog</a><a href="/en/games" class="hidden font-medium text-[var(--muted)] hover:text-[var(--fg)] border-b border-transparent hover:border-[var(--border)] sm:block">Games</a><a href="/en/tags" class="hidden font-medium text-[var(--muted)] hover:text-[var(--fg)] border-b border-transparent hover:border-[var(--border)] sm:block">Tags</a><a target="_blank" href="https://discord.gg/KZgXGYSEPh"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"></path></svg></a>
+        <div class="flex items-center rounded-full border border-[var(--border)] bg-[var(--card)] p-0.5 text-xs font-medium"><span class="px-2.5 py-1 rounded-full bg-[var(--fg)] text-[var(--bg)]">EN</span>
+                    <a href="/ru/blog/how_I_tried_gamedev" class="px-2.5 py-1 rounded-full text-[var(--muted)] hover:text-[var(--fg)] transition-colors">RU</a></div>
+        <button id="toggle-button" aria-label="Toggle Menu" class="block sm:hidden"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-8 w-8 text-[var(--fg)]"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg></button></div></header>
+<script>
+//👎 but what can I do? It's a static html. I can't use C# here.
+ const toggleMobileMenu = () => document.querySelector('#mobile-menu').classList.toggle('translate-x-full');
+ 
+ document.querySelector('#toggle-button').addEventListener('click', toggleMobileMenu);
+ document.querySelector('#close-mobile-menu-button').addEventListener('click', toggleMobileMenu);
+</script></nav>
+    <main class="card-panel w-full max-w-[720px] flex-1">
+<article><header class="mb-8"><h1 class="text-2xl font-bold tracking-tight text-[var(--fg)] sm:text-3xl">How software developer tried game development</h1>
+        <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[var(--muted)]"><span class="text-[var(--fg)]">Right</span><time datetime="2025-01-25T00:00:00.000">January 25, 2025</time><span class="border-l border-[var(--border)] pl-4"><div class="flex flex-wrap "><a class="text-[var(--muted)] hover:text-[var(--fg)] mr-3 text-sm font-medium uppercase" href="/en/tags/gamedev">gamedev</a></div></span></div></header>
+
+    <div class="prose prose-invert max-w-none pb-8"><p>I have several years of experience in IT, but I’ve never worked in game development. That didn’t stop me from participating in the Tech Jam by Facepunch for the yet-to-be-released <em>s&amp;box</em>. In this article, I’ll share my experience—along with all the failures along the way.
+<img src="Content/Blog/en/media/1/image19.png" alt="" /></p>
+<h1 id="preface">Preface</h1>
+<p>This article was originally <a href="https://sbox.game/righty/sbokuarena/news/how-a-developer-tried-game-development-f7f19993">posted</a> on the s&amp;box website. Here you can find a slightly extended version — in the original post I stripped descriptions of me and the s&amp;box platform. I thought it's nice to restore the cut content, so now you can read the full article.</p>
+<h1 id="about-me">About Me</h1>
+<p>I occasionally write a blog about OOP and static analysis, mostly focusing on compiler-related topics. As you might have noticed, game development is not on that list. My professional experience is limited to web development and static analysis.</p>
+<p>That said, I have some experience with game development. I started with the <em>Warcraft 3</em> editor and spent quite a bit of time working on add-ons for <em>Garry’s Mod</em>. Not to mention the many small games I made using <em>Love2D</em> that never saw the light of day.</p>
+<p><img src="Content/Blog/en/media/1/image18.png" alt="" />
+<em>An unreleased game I was making a year ago</em></p>
+<p>Still, I wouldn’t call myself particularly competent in this area, which made this adventure all the more eventful.</p>
+<h1 id="about-sbox">About s&amp;box</h1>
+<p>If you haven’t heard, <em>Garry’s Mod</em> recently made headlines as the best-selling PC-exclusive game of all time. Now, almost 20 years later, its spiritual successor—<em>s&amp;box</em>—is on the way. It takes things further than its predecessor, positioning itself somewhere between the original <em>Gmod</em>, <em>Roblox</em>, and, surprisingly, <em>Unity</em>.</p>
+<p>One crucial aspect of <em>s&amp;box</em> is that it includes a development platform built on top of <em>Source 2</em>. It features its own game editor, the <em>Source 2</em> level editor (<em>Hammer Editor</em>), an asset database, and a C# API—meaning it has a lot in common with <em>Unity</em>.</p>
+<p><img src="Content/Blog/en/media/1/image4.png" alt="" /></p>
+<p><em>It’s hard to spot a difference at the first glance</em></p>
+<p>After years of closed testing, <em>s&amp;box</em> became available to the public in mid-2024. Anyone could request access to the game from the website, and it remains in semi-open testing today. Many features are still missing, and the API is quite unstable.</p>
+<p>So far, the developers have hosted two game jams, and now they’ve announced a <a href="https://sbox.game/c/tech1/"><em>technical</em> jam</a>. I tried participating in the previous one, but I couldn’t quite handle the learning curve. After working on a puzzle game for a while, I decided to give it another shot and participate in the tech jam.</p>
+<h1 id="the-idea">The Idea</h1>
+<p>Every game jam starts with a solid idea. At first, I wanted to create a simplified version of a space simulation engine—something between <em>Kerbal Space Program</em> and <em>Space Engineers</em>. Fortunately, I quickly abandoned that idea due to its complexity.</p>
+<p><img src="Content/Blog/en/media/1/image1.png" alt="" /></p>
+<p><em>Ironically, someone else ended up <a href="https://sbox.game/stellawisps/stellasystem">submitting</a> a project that looked like a mini Space Engine.</em></p>
+<p>So, I started thinking about what I could realistically accomplish. Being a fan of a well-known survival game series featuring anomalies and artifact hunting, I came up with a simple idea: create AI bots that could surround the player. In the game, this is usually accompanied by a memorable battle cry: <em>“Sboku, sboku zahodi!”</em></p>
+<p>Thus, the name <em>SbokuBot</em> was born. To this day, I still wonder if it was a mistake not to call it <em>s&amp;boku bot</em> to take advantage of the obvious pun.</p>
+<p>I thought this was a good choice since game AI is often based on graph structures—something much closer to my professional skills (I even wrote an <a href="https://pvs-studio.com/en/blog/posts/java/1198/">article</a> about it recently). The initial concept was as follows:</p>
+<ul>
+<li>The bots should be able to surround the player, actively using cover.</li>
+<li>They should hide while reloading and move between cover spots while teammates provide distractions.</li>
+</ul>
+<p>At that point, I started figuring out how to implement it. <em>s&amp;box</em> already had a <em>NavMesh</em> with an API for pathfinding. The tricky part was the cover system. How should I determine cover locations? Manually? By scanning and memorizing the environment? Extracting them from geometry?</p>
+<p>Initially, I wanted to do this using a weighted <em>NavMesh</em>, but when I first opened the API reference, I was surprised at how minimalistic it was. The only thing I could do was find a path from point A to point B. That meant I had to refine my idea based on a very broad task description.</p>
+<p><img src="Content/Blog/en/media/1/image9.png" alt="" /></p>
+<p><em>NavMesh display in s&amp;box</em></p>
+<h1 id="development-begins">Development Begins</h1>
+<p>The next question was: where do I start? <em>s&amp;box</em> is very much like <em>Unity</em> in the sense that everything—including the character controller—has to be built from scratch. So, basing my project on an existing system was rather a necessity.</p>
+<p>Facepunch had made their own shooter, <em>Nicked</em>, which I originally wanted to fork. Thankfully, its source code was open.</p>
+<p><img src="Content/Blog/en/media/1/image2.png" alt="" /></p>
+<p><em>Counter-Strike like game mode</em></p>
+<p>However, after reading discussions about <em>Nicked</em>, I decided against it. It was too bulky, and I needed something simpler. That led me to <a href="https://sbox.game/swb/demo"><em>Simple Weapon Base</em></a> (SWB), a weapon pack with a built-in FFA deathmatch mode—exactly what I needed.</p>
+<p><img src="Content/Blog/en/media/1/image16.png" alt="" /></p>
+<p><em>Screenshot from the official page</em></p>
+<p>I was thrilled to see that SWB already had dummy bots included, as if everything was ready for me to just add AI. Or so I thought.</p>
+<h1 id="simple-weapon-base">Simple Weapon Base</h1>
+<p>While digging through SWB’s internals, I was surprised to find this in the <code>PlayerBase</code> class:</p>
+<pre><code class="language-cs">[Sync] public bool IsBot { get; set; }  
+</code></pre>
+<p>This meant bots weren’t separate entities—they were just flagged with a <code>bool</code>. The entire system relied on <code>if</code> statements to determine behavior. That’s when I first suspected things would be more complicated than I expected.</p>
+<p>And indeed, SWB wasn’t designed for bots at all. In the weapon class, for example, reloading was handled like this:</p>
+<pre><code class="language-cs">else if (Input.Down(InputButtonHelper.Reload))  
+</code></pre>
+<p>This meant weapon actions were directly tied to human input. The same applied to shooting. The funniest part? If you gave a bot a gun and held down the left mouse button, both you <em>and</em> the bot would start firing—because the weapon component responded to <em>your</em> keyboard inputs.</p>
+<p>While I solved the issue with the property instead of the class by creating my own controller that implemented a common interface, this time I had to dive into the project’s code, refactor it, and extend that common interface.</p>
+<p><img src="Content/Blog/en/media/1/image20.png" alt="" /></p>
+<p><em>Just for fun, I decided to use a human avatar as the enemy and let the player control Terry. This turned the game into a battle where the old avatar takes down the new one.</em></p>
+<p>Fixing the bot logic took me almost a week. The sheer amount of new information slowed me down significantly. Even something as simple as rotating the bot’s camera towards a target was daunting, since I’m not perfect with linear algebra. When I first encountered <em>quaternions</em>, I probably gained a few gray hairs.</p>
+<p>Nonetheless, after about four attempts, I managed to write a new bot class, and things started moving forward.</p>
+<h1 id="experiments-with-navmesh">Experiments with NavMesh</h1>
+<p>With the basics set up, it was time to (finally) work on AI. <em>s&amp;box</em> provided a <em>NavMeshAgent</em> component that could find paths and avoid collisions, but I encountered a funny problem—bots kept sliding around like they were on ice.</p>
+<p><video width="500" height="281" controls=""><source type="video/mp4" src="https://cdn.sbox.game/upload/b/433680a8/2ae8/4aea/9a01/00e88a45a5e0.mp4"></source></video></p>
+<p><em>It feels like there’s not enough friction</em></p>
+<p>After searching in Discord for advice, I ended up creating my own agent from scratch, directly interfacing with the <em>NavMesh</em> API. The task was simple: fetch a path using <code>GetSimplePath</code> and store it until an update was needed. I had to sacrifice crowd control features, but it worked.</p>
+<p>A day later, I had an AI bot that could follow the player and shoot. By then, it was already January 8.</p>
+<p><video width="500" height="281" controls=""><source type="video/mp4" src="https://cdn.sbox.game/upload/b/a28f319b/b33a/42a4/9b54/5ddff6be6633.mp4"></source></video></p>
+<p><em>Finally, the bot feels like a bot</em><br />
+One more note—I didn’t dive in headfirst. Instead, I decided to start with something simpler. I thought about mimicking NPC behavior from <em>Half-Life 2</em>—they never seemed particularly smart to me, but they also weren’t just standing around like statues. They’d either move around randomly or take cover. So this became both my first step and my &quot;bare minimum&quot; approach.</p>
+<h1 id="finite-state-machine">Finite-State Machine</h1>
+<h2 id="a-bit-of-theory">A bit of theory</h2>
+<p>A week into development, I finally tackled AI logic. The big question was: how should I implement it?</p>
+<p>A quick search led me to three possible approaches:</p>
+<ol>
+<li><strong>Finite-State Machine (FSM)</strong> – The bot switches between different states, each defining a unique behavior.</li>
+<li><strong>Behavior Tree</strong>.</li>
+<li><strong>Decision Tree</strong>.</li>
+</ol>
+<p>I didn't even describe the last two—because I didn’t understand them :). While FSM resembled a familiar <a href="https://en.wikipedia.org/wiki/State_pattern">state pattern</a>, the tree-based approaches seemed way more complex. I couldn’t grasp their benefits for my specific use case in the short timeframe. So maybe next time.</p>
+<p>FSM, however, had their own challenges. For example, let’s say a bot has the state <strong>&quot;moving from point A to B&quot;</strong> and another state <strong>&quot;attacking the target.&quot;</strong> What if I wanted the bot to <em>both</em> move and attack at the same time?</p>
+<p>That’s where <strong>Hierarchical Finite-State Machines (HFSMs)</strong> come in. However, I misunderstood them and accidentally invented my own version instead. I suspected this for a while, but I only confirmed it now.</p>
+<p>Anyway, here’s what my NPC’s state system looked like:</p>
+<ul>
+<li><strong>Movement States:</strong> idle, chasing, combat maneuvering (strategic movements, like taking cover).</li>
+<li><strong>Combat States:</strong> Idle, shooting, reloading.</li>
+</ul>
+<p>Clearly, there were <strong>two parallel layers of states</strong> (movement and combat), so I split them into separate subtypes:</p>
+<p><img src="Content/Blog/en/media/1/image13.png" alt="" /></p>
+<p><em>Simplified class diagram</em></p>
+<p>Additionally, I introduced <strong>conditions</strong> (an <code>ICondition</code> interface). This prevented redundant checks across multiple states. For instance, if the bot lost its weapon, it shouldn’t try to shoot or reload. Here’s a class structure of condtions:</p>
+<p><img src="Content/Blog/en/media/1/image17.png" alt="" /></p>
+<p><em>There’s not many, but it’s better that copying code</em></p>
+<p>Their usage was as follows:</p>
+<ol>
+<li>The FSM runs <strong>every set period of time</strong>:</li>
+<li><strong>Check conditions</strong> – If needed, change states.</li>
+<li><strong>Execute logic</strong> – Run the behavior of the current state (handled by <code>Think</code>).</li>
+</ol>
+<h2 id="how-i-did-it">How I did it</h2>
+<p>Each state had a straightforward implementation:</p>
+<ul>
+<li><strong>Idle</strong> – both combat and action states wait for the right conditions to change the state.</li>
+<li><strong>Attacking and reloading</strong> – If the bot has ammo <em>and</em> a clear shot, it fires (<code>IsShooting = true</code>). Otherwise, it reloads.</li>
+<li><strong>Chasing</strong> – Updates target coordinates and requests a path from <em>NavMesh</em>. The bot continues chasing until it's close enough to enter combat maneuvering.</li>
+<li><strong>Combat Maneuvering</strong> – Is more interesting. AI finds a nearby cover and moves behind it. If no cover is available, the bot picks a random movement pattern. Below is a flowchart of the algorithm (where &quot;tick&quot; refers to a <code>Think</code> call):</li>
+</ul>
+<p><img src="Content/Blog/en/media/1/image8.png" alt="" /></p>
+<p><em>flowchart of the algorithm</em></p>
+<p>Once this work was done, I had an AI bot that resembled a basic <em>Half-Life 2</em> NPC. Before refining it further, I wanted to showcase its existing features.</p>
+<h1 id="making-a-game-in-one-day">Making a Game in One Day</h1>
+<p>A week before the deadline, I had a great idea: create a <strong>simple combat mode</strong> where I could test the AI and showcase it to others.</p>
+<p>The concept was simple: <strong>a wave-based arena mode</strong> where you fight off waves of enemies. Between rounds, you level up, but so do your enemies.</p>
+<p>I planned to build it <strong>in one day</strong> (optimistic, I know). I only needed:</p>
+<ul>
+<li><strong>Three menus</strong>: character upgrades, weapon selection, and the game over screen.</li>
+<li>A <strong>spawner</strong> for enemy bots.</li>
+<li>A <strong>round manager</strong> to handle progression.</li>
+</ul>
+<p>Long story short: I didn’t.</p>
+<h2 id="another-one-another-one-another-one">Another one, another one, another one</h2>
+<p><img src="Content/Blog/en/media/1/image14.jpg" alt="" />
+<em>Things couldn’t go completely smoothly</em><br />
+If I had to pinpoint what went wrong the most, it was definitely poor planning. Altogether, I spent about 2–3 full workdays just on the arena. On top of that, the end of the holidays hit my motivation pretty hard.<br />
+But the shortcomings in the platform also had an impact. Here’s what went wrong:</p>
+<ul>
+<li><strong>Project Naming Bug</strong> – When setting up my <em>s&amp;box</em> project, I accidentally used uppercase letters in the package ident. This caused issues, I forgot which exactly. Later, when I added a period (&quot;.&quot;) to the ident, all my components disappeared. It took me an hour to realize the project name was the culprit.</li>
+<li><strong>Editor Glitches</strong> – I followed the official docs to add an in-editor tool… but nothing happened. After 30 minutes of restarting the editor, the tool <em>suddenly appeared</em>. Also a redundant prefab spawns on the scene each time I open the editor.</li>
+<li><strong>NavMesh Broke</strong> – A week before submission, the <em>NavMesh</em> suddenly stopped working. After debugging for days, I found out it wasn’t <em>my</em> fault—many people had the same issue. The fix? Regenerate the <em>NavMesh</em>.</li>
+<li><strong>Networking Bugs</strong> – In the final days, duplicate player instances started spawning randomly, leading to such amusing bugs:</li>
+</ul>
+<p><img src="Content/Blog/en/media/1/image12.png" alt="" /></p>
+<p><em>Players get extra guns. I noticed it when I fixed a bug in networking, but the problem remained. Co-op mode is still unfinished.</em></p>
+<p>Despite these and other setbacks, I pushed forward. There were more straightforward situations too—like when I was debugging multiplayer and couldn’t figure out why the <code>IsProxy</code> property was returning the wrong result. Who would’ve known that you need to call it after <code>OnStart</code>, not <code>OnAwake</code>, especially when the documentation doesn’t mention it at all (just a reminder, I’m an amateur in game dev).</p>
+<h2 id="change-of-concept"><strong>Change of concept</strong></h2>
+<p>At this point, I realized it was time to change the idea because all I had ready were just interfaces. And submitting a jam entry with a library that only had this to offer:</p>
+<pre><code>public interface ISbokuState  
+{  
+    public void Think();  
+    public void OnSet();  
+    public void OnUnset();  
+}  
+</code></pre>
+<p>Well, that seemed... questionable. It became clear that I probably wouldn’t be able to pull off that “smart” AI in time, so I decided to focus on two things:</p>
+<ol>
+<li>Finish the arena.</li>
+<li>Make the existing logic portable to any weapon base.</li>
+</ol>
+<p>The second point was necessary because during development, I had tied everything to SWB that I didn’t even consider it might backfire.</p>
+<p>To fix this, I had to turn <code>SbokuBase</code> into an abstract class and detach it from SWB, then inherit <code>BotAdapter</code> from it. During development, these were two unrelated components, both nailed to the weapon pack (the first was my implementation of the NavMesh agent, and the second was my implementation of the controller for SWB). On top of that, the states were also tightly bound to SWB. So, I decided to settle on the “minimum” version. With the new plan, I could at least submit <em>something</em> functional.</p>
+<h2 id="in-soviet-russia-deadlines-hit-you"><strong>In soviet Russia, deadlines hit you</strong></h2>
+<p>With three days left, I still didn’t have a <strong>proper arena</strong> (despite my &quot;one-day&quot; plan). It was crunch time.</p>
+<h3 id="the-game-mode"><strong>The game mode</strong></h3>
+<p>There’s not much to say here—I just had to sit down, get it done, test it, and repeat.</p>
+<p>Surprisingly, <em>s&amp;box</em> uses <strong>Razor markup</strong> for UI (borrowed from Blazor). It even has built-in SCSS support. My web development experience finally came in handy.</p>
+<p><img src="Content/Blog/en/media/1/image6.png" alt="" /></p>
+<p><em>Like in old good days</em></p>
+<h3 id="creating-the-map"><strong>Creating the Map</strong></h3>
+<p>Until now, I had been testing on a rough prototype—a bunch of resized cubes. But I needed a real map.</p>
+<p><img src="Content/Blog/en/media/1/image15.png" alt="" /></p>
+<p><em>Straightforward and to the point.</em></p>
+<p>Fortunately, I had experience with <em>Hammer Editor</em> (from <em>Counter-Strike: Source</em> map-making). Unfortunately, Source 2’s Hammer is completely different.</p>
+<p><img src="Content/Blog/en/media/1/image7.png" alt="" /></p>
+<p><em>Jokes aside, the editor has really leveled up. Now it’s more like Blender.</em></p>
+<p>The new editor is great, but it has one downside—there's not enough guides online. Learning the new tools took time, but I eventually built a spectacular box with slight verticality.</p>
+<p><img src="Content/Blog/en/media/1/image10.png" alt="" /></p>
+<p><em>Finally, my skills were good for something.</em></p>
+<p>Adding some props and fog made it look halfway decent.</p>
+<p><img src="Content/Blog/en/media/1/image11.png" alt="" /></p>
+<p><em>I’m happy with the result. There’s definitely room to grow, though.</em></p>
+<h3 id="final-steps-modular-ai-library">Final Steps: Modular AI Library</h3>
+<p>With the game mode finished, I returned to my <strong>original goal</strong>—creating a reusable AI framework. Overall, I already described my goal in the &quot;Change of Concept&quot; section. And it turned out to be a bit easier than I expected. So, the last day for me was spent in relaxed tweaks and refactoring.</p>
+<p>But there’s one more interesting remark I’ll make here. One limitation of <em>s&amp;box</em>—it doesn’t support <strong>NuGet</strong>. Instead, it uses a custom library system that loads dependencies directly from its <a href="https://sbox.game/t/library/">website</a>. It’s supposedly safer (only whitelisted namespaces work), but it also means libraries <strong>can’t depend on each other</strong> yet.</p>
+<p><strong>Submission &amp; Release</strong></p>
+<p>In the end, I submitted my entry on the last day—alongside 99 other participants. Some submissions were really impressive, and some of them are even in the same field as mine.</p>
+<p><img src="Content/Blog/en/media/1/image3.png" alt="" /></p>
+<p>My game mode, <em>Sboku Arena</em>, is available <a href="https://sbox.game/righty/sbokuarena">here</a>, and the AI library, available <a href="https://sbox.game/righty/sbokubot">here</a>. They share the same <a href="https://github.com/KonstantinRight/SbokuArena">repo</a> on GitHub. Feel free to improve it if you want—there’s definitely room for enhancement.</p>
+<p>And a huge shoutout to the SWB creators—without their work, this game mode wouldn’t have been possible.</p>
+<h2 id="final-thoughts"><strong>Final Thoughts</strong></h2>
+<p>This was a fun, albeit <strong>chaotic</strong>, experience. Jumping into an unfamiliar field like game development was both exciting and frustrating. But I learned a lot, and I’m happy to see my work alongside other great submissions. I especially enjoyed (It’s just my <a href="https://pvs-studio.com/en/blog/posts/java/1154/">background</a>, what can I say) a <a href="https://sbox.game/rileyzzz/luabox"><strong>Lua interpreter</strong></a> ported from C++. Check out the <a href="https://sbox.game/rileyzzz/luabox">article</a> about it, it’s awesome.</p>
+<p>As for <em>s&amp;box</em>, I have mixed feelings. It has <strong>huge potential</strong>, and compared to <em>Unity</em>, it feels refreshing. However, the ecosystem is still <strong>rough</strong>—tons of roadblocks and breaking updates discourage me from using it for now. So I’ll focus on Sboku Arena and pause the puzzle game development I mentioned.</p>
+<p>That’s it for now! See you next time!</p>
+</div></article></main>
+    <footer class="w-full max-w-[720px]"><div class="flex flex-col items-center"><div class="flex space-x-3"><a target="_blank" href="https://x.com/rightydev"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M 5.9199219 6 L 20.582031 27.375 L 6.2304688 44 L 9.4101562 44 L 21.986328 29.421875 L 31.986328 44 L 44 44 L 28.681641 21.669922 L 42.199219 6 L 39.029297 6 L 27.275391 19.617188 L 17.933594 6 L 5.9199219 6 z M 9.7167969 8 L 16.880859 8 L 40.203125 42 L 33.039062 42 L 9.7167969 8 z"></path></svg></a>
+                <a target="_blank" href="https://www.twitch.tv/rightydev"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142z"></path>
+            <path d="M11.857 3.143h-1.143V6.57h1.143zm-3.143 0H7.571V6.57h1.143z"></path></svg></a>
+                <a target="_blank" href="https://github.com/KonstantinRight"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg></a>
+                <a target="_blank" href="https://www.youtube.com/channel/UCO-y484eT4gHaeUY2u8PQFQ"><svg style="scale: 1.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M20.2838235,29.7208546 L20.2817697,19.3775851 L30.0092421,24.5671906 L20.2838235,29.7208546 Z M41.6409276,17.5856462 C41.6409276,17.5856462 41.2890436,15.0488633 40.2097727,13.9319394 C38.8405739,12.4655276 37.3060444,12.4583393 36.6026186,12.3724221 C31.5649942,12 24.008044,12 24.008044,12 L23.9922983,12 C23.9922983,12 16.4356904,12 11.398066,12.3724221 C10.6939556,12.4583393 9.16045298,12.4655276 7.79091194,13.9319394 C6.71164104,15.0488633 6.36009927,17.5856462 6.36009927,17.5856462 C6.36009927,17.5856462 6,20.5646804 6,23.5437145 L6,26.3365376 C6,29.3152295 6.36009927,32.2946059 6.36009927,32.2946059 C6.36009927,32.2946059 6.71164104,34.8310466 7.79091194,35.9483127 C9.16045298,37.4147246 10.9592378,37.3681718 11.7605614,37.5218644 C14.6406709,37.8042616 24.0001711,37.8915481 24.0001711,37.8915481 C24.0001711,37.8915481 31.5649942,37.8799099 36.6026186,37.5074878 C37.3060444,37.4219129 38.8405739,37.4147246 40.2097727,35.9483127 C41.2890436,34.8310466 41.6409276,32.2946059 41.6409276,32.2946059 C41.6409276,32.2946059 42,29.3152295 42,26.3365376 L42,23.5437145 C42,20.5646804 41.6409276,17.5856462 41.6409276,17.5856462 L41.6409276,17.5856462 Z"></path></svg></a>
+                <a target="_blank" href="https://www.instagram.com/rightydev"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"></path></svg></a>
+                <a target="_blank" href="https://www.tiktok.com/@righty.dev"><svg style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="hover:text-[var(--fg)] h-6 w-6 fill-current text-[var(--muted)]"><path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"></path></svg></a></div>
+            <div class="flex space-x-2 text-sm text-[var(--muted)]"><span>Right</span>
+                <div>© 2026</div></div></div></footer></div>
+        <blazor-focus-on-navigate selector="h1"></blazor-focus-on-navigate></body></html>

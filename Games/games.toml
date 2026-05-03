@@ -1,0 +1,30 @@
+[[games]]
+title = "Terry Dev Tycoon"
+description = """
+A spin on the gamedev genre, with a main focus on micromanagement. In this sim you can:
+* Balance your character's needs against shipping features
+* Manage your team via a task tracker
+* Promote your brand and hunt for employees
+* Make great games and dominate the s&box market
+* Or fail spectacularly
+"""
+link = "https://sbox.game/righty/terrydev"
+screenshots = [
+    "/Games/terrydev_1.jpg", 
+    "/Games/terrydev_2.jpg", 
+    "/Games/terrydev_3.jpg", 
+    "/Games/terrydev_4.jpg", 
+    "/Games/terrydev_5.jpg"
+]
+
+[[games]]
+title = "Sboku Arena"
+description = """
+Sboku arena is an FPS arena game mode for S&Box, built on top of [Simple Weapon Base](https://github.com/timmybo5/simple-weapon-base). It demonstrates the capabilities of SbokuBot, an AI framework for shooter NPCs.
+* Survive finite waves of enemies
+* Upgrade your character 
+* Сreate your own build
+"""
+link = "https://sbox.game/righty/sbokuarena"
+github = "https://github.com/KonstantinRight/SbokuArena"
+screenshots = ["/Games/sboku_1.jpg", "/Games/sboku_2.jpg", "/Games/sboku_3.jpg", "/Games/sboku_4.jpg"]
